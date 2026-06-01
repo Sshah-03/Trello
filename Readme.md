@@ -107,7 +107,7 @@ app/
 Create a `.env` file in the project root with the following variables:
 
 ```env
-DATABASE_URL=sqlite:///./test.db
+DATABASE_URL=mysql+pymysql://root:root123@localhost:3306/skilltrack_db
 SECRET_KEY=your-secret-key-change-this-in-production
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
