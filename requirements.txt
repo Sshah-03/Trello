@@ -9,3 +9,5 @@ email-validator
 pydantic
 pydantic-settings
 alembic
+pytest
+pytest-cov

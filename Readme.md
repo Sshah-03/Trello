@@ -10,6 +10,7 @@ A FastAPI-based backend for a Trello-like project management application. This A
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
+- [Testing](#testing)
 - [API Endpoints](#api-endpoints)
 - [Authentication](#authentication)
 - [Database Models](#database-models)
@@ -74,7 +75,7 @@ app/
 ### Prerequisites
 - Python 3.8+
 - pip or poetry
-- SQLite or PostgreSQL (configured in .env)
+- MySQL server with a database and user configured
 
 ### Steps
 
@@ -107,14 +108,14 @@ app/
 Create a `.env` file in the project root with the following variables:
 
 ```env
-DATABASE_URL=mysql+pymysql://root:root123@localhost:3306/skilltrack_db
+DATABASE_URL=mysql+pymysql://root:root123@localhost:3306/Trello
 SECRET_KEY=your-secret-key-change-this-in-production
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
 **Environment Variables:**
-- `DATABASE_URL`: Database connection string (SQLite, PostgreSQL, MySQL, etc.)
+- `DATABASE_URL`: Database connection string using MySQL and PyMySQL, for example `mysql+pymysql://user:password@host:3306/dbname`
 - `SECRET_KEY`: Secret key for JWT encoding (use a strong, random string in production)
 - `ALGORITHM`: JWT algorithm (HS256 recommended)
 - `ACCESS_TOKEN_EXPIRE_MINUTES`: Token expiration time in minutes
@@ -136,6 +137,34 @@ The API will be available at `http://localhost:8000`
 **API Documentation:**
 - Interactive Docs (Swagger UI): `http://localhost:8000/docs`
 - Alternative Docs (ReDoc): `http://localhost:8000/redoc`
+
+## 🧪 Testing
+
+This project uses `pytest` for unit and integration testing. The test suite runs against an in-memory SQLite database by default and does not require an external database server.
+
+### Install test dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Run all tests
+```bash
+pytest --cov=app tests/
+```
+
+### Coverage requirements
+- At least 50% of project functions are covered by unit tests.
+- At least 50% of API endpoints are covered by integration tests.
+
+### Test layout
+- `tests/conftest.py` — shared test fixtures and FastAPI client setup
+- `tests/test_utils_security.py` — unit tests for password hashing and verification
+- `tests/test_utils_jwt.py` — unit tests for JWT generation
+- `tests/test_auth_service.py` — unit tests for user registration and login logic
+- `tests/test_board_service.py` — board service unit tests
+- `tests/test_api_endpoints.py` — integration tests for authentication, boards, and sections
+
+## 📡 API Endpoints
 
 ## 📡 API Endpoints
 
