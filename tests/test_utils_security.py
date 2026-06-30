@@ -1,23 +1,32 @@
+import pytest
 from app.utils.security import hash_password, verify_password
 
 
-def test_hash_password_returns_string():
-    password = "MySecret123!"
-    hashed = hash_password(password)
+class TestPasswordHashing:
+    """Test suite for password hashing functionality."""
 
-    assert isinstance(hashed, str)
-    assert hashed != password
+    def test_hash_password_returns_string(self):
+        """Test that hash_password returns a string that differs from the original."""
+        password = "MySecret123!"
+        hashed = hash_password(password)
 
-
-def test_verify_password_success():
-    password = "AnotherSecret!"
-    hashed = hash_password(password)
-
-    assert verify_password(password, hashed) is True
+        assert isinstance(hashed, str)
+        assert hashed != password
 
 
-def test_verify_password_failure():
-    password = "MySecret123!"
-    hashed = hash_password(password)
+class TestPasswordVerification:
+    """Test suite for password verification functionality."""
 
-    assert verify_password("WrongPassword", hashed) is False
+    def test_verify_password_success(self):
+        """Test that verify_password returns True for correct password."""
+        password = "AnotherSecret!"
+        hashed = hash_password(password)
+
+        assert verify_password(password, hashed) is True
+
+    def test_verify_password_failure(self):
+        """Test that verify_password returns False for incorrect password."""
+        password = "MySecret123!"
+        hashed = hash_password(password)
+
+        assert verify_password("WrongPassword", hashed) is False
